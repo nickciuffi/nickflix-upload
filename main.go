@@ -13,7 +13,7 @@ import (
 
 func main() {
 
-	if len(os.Args) == 1 && os.Args[1] != "" {
+	if len(os.Args) == 1 || os.Args[1] == "" {
 		fmt.Println("Please use the application this way: nickflix-upload <movie-file-name> <subtitle-file-name (optional)>")
 		return
 	}
@@ -24,7 +24,8 @@ func main() {
 	ftpUser := "ftpuser"
 	ftpPassword := "051205"
 
-	var hasSubtitle bool = len(os.Args) > 3 && os.Args[2] != ""
+	var hasSubtitle bool = len(os.Args) >= 3 && os.Args[2] != ""
+
 	currentDir, _ := os.Getwd()
 
 	movieFileName := os.Args[1]
@@ -33,6 +34,7 @@ func main() {
 	localMovieFilePath := filepath.Join(currentDir, movieFileName)
 	remoteMovieFilePath := "/files/movies/" + noSpacesMovieFileName
 
+	fmt.Printf("Starting reading movie file...\n\n")
 	movieFileContents, err := os.ReadFile(localMovieFilePath)
 	if err != nil {
 		fmt.Println("Error reading movie local file:", err)
@@ -54,7 +56,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("Starting Movie upload. This might take a while")
+	fmt.Printf("Starting Movie upload. This might take a while...\n\n")
 
 	err = ftpClient.Stor(remoteMovieFilePath, bytes.NewReader(movieFileContents))
 	if err != nil {
@@ -62,21 +64,22 @@ func main() {
 		return
 	}
 
-	fmt.Println("Movie uploaded successfully to FTP server!")
-	fmt.Printf("Link: ../secret-movies/%s", noSpacesMovieFileName)
+	fmt.Printf("Movie uploaded successfully to FTP server!\n\n")
+	fmt.Printf("Link: ../secret-movies/%s\n\n", noSpacesMovieFileName)
 
 	if hasSubtitle {
 		subtitleFileName := os.Args[2]
 		noSpacesSubtitleFileName := strings.ReplaceAll(subtitleFileName, " ", "-")
-		remoteSubtitleFilePath := "/files/movies/" + noSpacesSubtitleFileName
+		remoteSubtitleFilePath := "/files/movies/subtitles/" + noSpacesSubtitleFileName
 		localSubtitleFilePath := filepath.Join(currentDir, subtitleFileName)
+		fmt.Printf("Starting reading subtitle file...\n\n")
 		subtitleFileContents, err := os.ReadFile(localSubtitleFilePath)
 		if err != nil {
 			fmt.Println("Error reading subtitle local file:", err)
 			return
 		}
-		
-		fmt.Println("Starting Movie upload. This might take a while")
+
+		fmt.Printf("Starting subtitle upload. This might take a while\n\n")
 		err = ftpClient.Stor(remoteSubtitleFilePath, bytes.NewReader(subtitleFileContents))
 
 		if err != nil {
@@ -84,7 +87,7 @@ func main() {
 			return
 		}
 
-		fmt.Println("Subtitle uploaded successfully to FTP server!")
+		fmt.Printf("Subtitle uploaded successfully to FTP server!\n\n")
 		fmt.Printf("Link: ../secret-movies/subtitles/%s", noSpacesMovieFileName)
 	}
 
