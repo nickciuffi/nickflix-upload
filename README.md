@@ -13,8 +13,8 @@ In this part of the project I only used the Golang, with a few libraries, that I
 <br>
 Creating my first Go project was an awesome experience, so I plan on learning a lot more about the language.<br><br>
 
-Video of the application:<br>
+Video of the application uploading a video and subtitle to my FTP server:<br>
 
-https://github.com/nickciuffi/nickflix-upload/assets/86213451/ae00b1d0-0a11-4a3d-9ffc-7e545fdd9bcc<br><br>
+https://github.com/nickciuffi/nickflix-upload/assets/86213451/bbe4d266-d00a-4507-8b86-812a817c820a<br><br>
 
 This project was build exclusively for learning purposes, so it is clear that only testing videos were used in this project.
