@@ -17,4 +17,4 @@ Video of the application:<br>
 
 https://github.com/nickciuffi/nickflix-upload/assets/86213451/ae00b1d0-0a11-4a3d-9ffc-7e545fdd9bcc<br><br>
 
-Ps: This project was build exclusivelly for learning purposes, so it is clear that only testing videos were used in this project.
+This project was build exclusively for learning purposes, so it is clear that only testing videos were used in this project.
